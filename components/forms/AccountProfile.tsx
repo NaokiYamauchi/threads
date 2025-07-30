@@ -10,6 +10,7 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
+import { isBase64Image } from '@/lib/utils';
 import { UserValidation } from '@/lib/validations/user';
 import { zodResolver } from '@hookform/resolvers/zod';
 import Image from 'next/image';
@@ -67,9 +68,9 @@ const AccountProfile = ({ user, btnTitle }) => {
 	};
 
 	function onSubmit(values: z.infer<typeof UserValidation>) {
-		// Do something with the form values.
-		// ✅ This will be type-safe and validated.
-		console.log(values);
+		const blob = values.profile_photo;
+
+		const hasImageChanged = isBase64Image(blob);
 	}
 
 	return (
@@ -183,3 +184,5 @@ const AccountProfile = ({ user, btnTitle }) => {
 };
 
 export default AccountProfile;
+
+// 1:43:55 -
